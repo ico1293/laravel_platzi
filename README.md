@@ -25,19 +25,19 @@ composer global require "laravel/installer"
 > En la siguiente ruta, se encuentra instalado laravel: (Tengo entendido) C:\Users\Stiven\AppData\Roaming\Composer\vendor\bin
 
 ### Agregar laravel a la variable de entorno PATH
-damos propiedades a mi PC.
+- damos propiedades a mi PC.
 
-luego clic en configuración avanzada del sistema.
+- luego clic en configuración avanzada del sistema.
 
-pestaña Opciones avanzadas.
+- pestaña Opciones avanzadas.
 
-pulsamos el boton variables de entorno.
+- pulsamos el boton variables de entorno.
 
-en variables de sistema ubicamos path.
+- en variables de sistema ubicamos path.
 
-pulsamos editar
+- pulsamos editar
 
-pulsamos nuevo, y copiamos ahí la ruta :
+- pulsamos nuevo, y copiamos ahí la ruta :
 
 >C:\Users\Stiven\AppData\Roaming\Composer\vendor\bin
 
@@ -46,5 +46,11 @@ aceptar a todo y listo, ya podemos utilizar el comando laravel en la terminal.
 ## Crear un proyecto laravel
 
 ```
-laraven new <nombre_del_proyecto>
+laravel new <nombre_del_proyecto>
 ```
+## Levantar el servidor
+
+```
+php artisan serve
+```
+
