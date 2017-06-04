@@ -148,4 +148,12 @@ en la sintaxis de **Blade** :
 @endforeach
 ```
 ## Utilizar variables en el template
-podemos utilizarlas, pero las tenemos que enviar desde afuera, desde donde llamamos a este template (web.php)
+podemos utilizarlas, pero las tenemos que enviar desde afuera, desde donde llamamos a este template, en las rutas (web.php)
+
+## Conexion entre el CONTROLLER y la RUTA
+
+el controller es llamado desde el segundo parametro de la ruta de la siguiente forma:
+
+```
+'<Nombre_Controller>Controller@<nombre_metodo>'
+```
