@@ -15,3 +15,5 @@
 // Home es el metodo dentro de la clase
 Route::get('/', 'PagesController@home');
 
+Route::get('/messages/{message}', 'MessagesController@show');
+
