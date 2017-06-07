@@ -17,12 +17,12 @@ class MessagesTableSeeder extends Seeder
         // or : https://desarrolloweb.com/articulos/seeders-laravel5.html
 
         Message::create([
-        		'content' => 'Este es el primer mensaje de laratter',
+        		'content' => '1Este es el primer mensaje de laratter',
         		'image' => 'http://lorempixel.com/600/338?1',
         	]);
 
         Message::create([
-        		'content' => 'Que bueno que esta Laratter!',
+        		'content' => '1Que bueno que esta Laratter!',
         		'image' => 'http://lorempixel.com/600/338?2',
         	]);
 

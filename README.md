@@ -69,6 +69,18 @@ composer global require "laravel/installer"
 
 aceptar a todo y listo, ya podemos utilizar el comando laravel en la terminal.
 
+## MYSQL
+
+Iniciar mysql en windows con la terminal:
+> mysqld
+
+Parar mysql en windows con la terminal, es necesario que la terminar que tiene arrancado mysql no sea cerrada, hasta que no sea detenido mediante otra terminal:
+> mysqladmin -u root shutdown
+
+también puede ser detenido mediante:
+> mysqld stop
+
+
 ## ¿DONDE SE ENCUENTRAN LOS ARCHIVOS?
 
 - VISTAS
@@ -95,7 +107,10 @@ aceptar a todo y listo, ya podemos utilizar el comando laravel en la terminal.
 ```
 /database/migrations
 ```
-
+- REQUESTS
+```
+/app/Http/Requests/
+```
 
 ## Crear un proyecto laravel
 
@@ -110,37 +125,56 @@ php artisan serve
 
 # ROUTE
 ```
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::<get/post>('/<ruta_a_asignar>', '<Nombre_Controller>Controller@<metodo>');
 ```
+> 1. seleccionar el tipo de ruta si es get o post.
+> 2. asignar una ruta.
+>   note: '/' indica nuestra home.
+> 3. nombre del controlador, usualmente sería el nombre del modelo en plural.
+> 4. metodo del controlador, usualmente dependiendo de este, viene a ser asignada la ruta.
+
 > Ubicacion: /routes/wep.php
 
-
-> Note: 
-> - Primero parametro : es la ruta. en este caso: ``` '/' ``` , que indica nuestra home. 
-> -  Segundo parametro : es la funcion de un controlador. en este caso: funcion anonima que como unico retorno es ``` view('welcome'); ``` cada vez que un usuario entre a la home de nuestro sitio, se va a ejecutar esta función anonima, y está a su vez va a renderizar la vista welcome, que se encuentra en ``` /resourses/views/welcome.blade.php ```. 
-> Note 2:
-> note que solo va el nombre de la view y se ignora el resto ```.blade.php ```.
-> Note 3:
+> Note:
 > Se puede configurar una ruta sin una view, no necesito que existan las dos cosas. (pero claro que no queremos hacer esto).
 
-para pasarle a la view variables, lo hacemos con el segundo parametro de view: este segundo parametro recibe un array, donde podemos mandarle n cantidad de variables a la view
-```
-Route::get('/', function () {
+# CONTROLLER
 
-	$<variable> = [
-		'<key>' => '<value>',
-		'<key2>' => '<value2>'
-	];
-
-    return view('welcome' , ['<variable>' => $<variable>,
-    ]);
-});
+**Create Controller Class:**
 ```
-> Note: Para el array del segundo parametro:
+php artisan make:controller <Table_Name>Controller --resource
+```
+> **Note:**
+> ** resource :** creará un controller con los metodos.
+
+### Function Show
+```
+// import the namespace
+use App\<Model>;
+...
+public function show(<Model> $<model>)
+{
+    return view('<carpeta>.<show>',['<model>' => $<model>,]);
+}
+```
+> carpeta : se debe crear una carpeta dentro de /views con el nombre de la tabla (plural).
+> show : es el nombre del .blade.php dentro de la carpeta <carpeta>
+> **NOTE**:
+> la funcion view funciona de la siguiente forma: rendericeme la view tal (primer parametro) y enviele las siguientes variables (segundo parametro).
+
+> **Note 2**:
+> note que solo va el nombre de la view y se ignora el resto ```.blade.php ```.
+
+> **Note 3**:
+>  Para el array del segundo parametro:
 > - la key sera el nombre que se le dará a la variable en la view.
 > - el value, será la variable que queramos mandarle a la view.
+
+La configuracion de la ruta para este controller sería así: 
+```
+Route::get('/<table_name>/{<var_id>}', '<TableName>Controller@show');
+```
+> var_id : sería la variable normalmente id, enviada desde la vista que llama a esta ruta. 
 
 
 # BLADE
@@ -174,7 +208,7 @@ en la sintaxis de **Blade** :
 @endforeach
 ```
 ## Utilizar variables en el template
-podemos utilizarlas, pero las tenemos que enviar desde afuera, desde donde llamamos a este template, en las rutas (web.php)
+podemos utilizarlas, pero las tenemos que enviar desde afuera, desde donde llamamos a este template, en las rutas (web.php), que a su vez llama a un controller que este es directamente el que le envia la varible.
 
 ## Conexion entre el CONTROLLER y la RUTA
 
@@ -184,3 +218,52 @@ el controller es llamado desde el segundo parametro de la ruta de la siguiente f
 '<Nombre_Controller>Controller@<nombre_metodo>'
 ```
 
+# REQUEST
+
+El request es creado para las validaciones y los mensajes de error.
+Llega por medio el metodo Post.
+
+```
+php artisan make:request Create<Model>Request
+```
+
+lo primero que debemos cambiar es: a true
+
+```
+    public function authorize()
+    {
+        // change this to true
+        return true;
+    }
+```
+
+Como funciona la function rules?:
+```
+    public function rules()
+    {
+        return [
+            'message' => ['required', 'max:160'],
+        ];
+    }
+```
+> retorna un array de reglas.
+> key: el nombre del campo que llega del request
+> value: array de reglas: reglas vistas hasta hoy(required, max:tamaño maximo)
+
+Adicionarle a la clase Request la siguiente funcion para modificar los mensajes mostrados:
+```
+/**
+     * Create this to reconfig the request messages
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'message.required' => 'Por favor, escribe tu mensaje.',
+            'message.max' => 'El mensaje no pude superar los 160 caracteres.',
+        ];
+    }  
+```
+
+> 'field.rule' => 'mensaje a mostrar.',

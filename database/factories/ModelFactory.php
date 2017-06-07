@@ -22,3 +22,13 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Message::Class, function(Faker\Generator $faker){
+	//key: column
+	//value: value to be assigned
+	return [
+		'content' => $faker->realText(random_int(40, 160)),
+		'image' => $faker->imageUrl(600, 338), 
+	];
+
+});
