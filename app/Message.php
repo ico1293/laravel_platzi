@@ -10,6 +10,8 @@ class Message extends Model
 
 	// Defining manually the table
 	protected $table = 'messages';
-
 	// note: laravel do this automatically
+
+	// protect column, if array's empty (dont protect any)
+	protected $guarded = [];
 }

@@ -1,6 +1,32 @@
 # Laravel_Platzi
 Seguimiento paso a paso del curso de laravel de platzi, para el estudio futuro del framework
 
+## Preparar Sublime Text 3 para Laravel
+### Instalar Package Control
+
+[link to install Package Control](https://packagecontrol.io/)
+
+* Seleccionamos Installation.
+* Copiamos el codigo referente a la version de Sublime Text
+* En Sublime vamos a view->show console 
+* Pegamos ahí el codigo, enter, y reiniciamos Sublime
+
+### Instalar Paquetes
+abrimos package control con la siguiente combinación de letras:
+> control + shift + p
+
+Instalamos los siguientes paquetes:
+
+* Laravel Blade Highlighter
+* Blade Snippets
+
+**Extra**: podemos instalar para los .md (markdown): 
+
+* MarkDown preview
+* MarkDown Editing
+
+Y reiniciamos sublime
+
 ## INSTALACION DE LARAVEL EN WINDOWS
 ### Instalamos composer
 
@@ -157,3 +183,4 @@ el controller es llamado desde el segundo parametro de la ruta de la siguiente f
 ```
 '<Nombre_Controller>Controller@<nombre_metodo>'
 ```
+

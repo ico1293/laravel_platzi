@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // import the namespace
 use App\Message;
+use App\Http\Requests\CreateMessageRequest;
 
 class MessagesController extends Controller
 {
@@ -23,10 +24,25 @@ class MessagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(CreateMessageRequest $request)
     {
-        dd($request->all());
-        return 'Created!';
+        /** Validate
+        * firs parameter: the var request that is received
+        * second parameter: rules array
+        *   each key corresponds to a field of the request
+        *   each value can be a string or a array of rules
+        * third parameter: message array
+        */
+        //$this->validate($request,['message' => ['required', 'max:160'],], ['message.required' => 'Por favor, escribe tu mensaje.', 'message.max' => 'El mensaje no pude superar los 160 caracteres.',]);
+
+        // Save this message in the DB:
+        // key: column. Value: Value to be assigned
+        $message = Message::create([
+                'content' => $request->input('message'),
+                'image' => 'http://lorempixel.com/600/338?'.mt_rand(0,1000)
+            ]);
+
+        return redirect('/messages/'.$message->id);
     }
 
     /**
