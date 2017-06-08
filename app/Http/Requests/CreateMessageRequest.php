@@ -24,6 +24,10 @@ class CreateMessageRequest extends FormRequest
      */
     public function rules()
     {
+        /** Note:
+        *   each key corresponds to a field of the request
+        *   each value can be a string or a array of rules
+        */
         return [
             'message' => ['required', 'max:160'],
         ];

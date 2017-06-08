@@ -40,6 +40,15 @@
     @empty
         <p>No hay mensajes destacados.</p>
     @endforelse
+    
+    {{-- if I have messages so... (note: only in pagination) --}}
+    @if(count($messages))
+    {{-- mt:margen relativo por arriba, mx: izq, der, margen automatico --}}
+    <div class="mt-2 mx-auto">
+        {{-- show links to pages --}}
+        {{ $messages->links('pagination::bootstrap-4') }}
+    </div> 
+    @endif
 </div>
 
 @endsection
